@@ -1,0 +1,10 @@
+from collections import defaultdict
+from yaml import load
+
+files, = glob_wildcards("data/{sample}/outs/filtered_feature_bc_matrix.h5")
+
+include: "spatial.smk"
+
+rule all:
+    input:
+        expand("rds/{sample}.rds",sample=files)

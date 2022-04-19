@@ -2,23 +2,17 @@
 from collections import defaultdict
 from yaml import load
 
-files, = glob_wildcards("{sample}/outs/filtered_feature_bc_matrix.h5")
+files, = glob_wildcards("data/{sample}/outs/filtered_feature_bc_matrix.h5")
 
 
-rule all:
+
+rule rds:
     input:
-        expand("pdf/{sample}.umap.pdf",sample=files)
-
-
-
-rule umap:
-    input:
-        "{sample}/outs/filtered_feature_bc_matrix.h5"
+        "data/{sample}/outs/filtered_feature_bc_matrix.h5"
     output:
-        "pdf/{sample}.umap.pdf",
-        "rds/{sample}.rds"
+        protected("rds/{sample}.rds")
     threads: 2
     resources:
-        mem_mb=5000
+        mem_mb=2500
     shell:
-        "scripts/spatial-pipeline-stage1.R {wildcards.sample}"
+        "workflow/scripts/spatial-pipeline-stage1.R {wildcards.sample}"
