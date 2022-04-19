@@ -15,4 +15,4 @@ rule rds:
     resources:
         mem_mb=2500
     shell:
-        "workflow/scripts/spatial-pipeline-stage1.R {wildcards.sample}"
+        "workflow/scripts/spatial-rds.R {wildcards.sample}"
