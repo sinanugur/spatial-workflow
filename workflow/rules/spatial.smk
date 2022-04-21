@@ -31,18 +31,18 @@ rule imagefix:
         "data/{sample}/outs/spatial/tissue_lowres_image.png"
     output:
         "{sample}/TissueImage/{sample}.png",
-        "data/{sample}/outs/spatial/grayscale.png"
+        "data/{sample}/outs/spatial/tissue_fixed.png"
 
     shell:
         """
-        convert {input} -colorspace HSI -channel blue -separate +channel {output[0]}
-        convert {input} -colorspace HSI -channel blue -separate +channel {output[1]}
+        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output[0]}
+        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output[1]}
         """
 
 rule qc:
     input:
         "rds/{sample}.rds",
-        "data/{sample}/outs/spatial/grayscale.png"
+        "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
         "{sample}/technicals/{sample}.n_counts.pdf",
         "{sample}/technicals/{sample}.normalization.pdf"
@@ -55,7 +55,7 @@ rule qc:
 rule umap:
     input:
         "rds/{sample}.rds",
-        "data/{sample}/outs/spatial/grayscale.png"
+        "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
         "{sample}/resolution-{res}/{sample}.umap.spatial.pdf"
     run:
@@ -80,21 +80,31 @@ rule clustermarkers:
         "{sample}/resolution-{res}/{sample}.all-markers-forAllClusters.xlsx"
     shell:
         """
-        workflow/scripts/spatial-clustermarkers.R {wildcards.sample} {wildcards.res}
+        workflow/scripts/spatial-cluster-markers.R {wildcards.sample} {wildcards.res}
         """
 
-
+rule clustermarkerplots:
+    input:
+        "rds/{sample}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
+    output:
+        directory("{sample}/resolution-{res}/markers")
+    shell:
+        """
+        workflow/scripts/spatial-cluster-markerplots.R {wildcards.sample} {wildcards.res}
+        """
 
 rule spatialfeatures:
     input:
-        "rds/{sample}.rds"
+        "rds/{sample}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
-        "{sample}/{sample}.spatial_markers.xlsx",
-        directory("{sample}/spatial-markers")
+        "{sample}/spatial-markers/{sample}.spatial_markers.xlsx",
+        directory("{sample}/spatial-markers/plots")
     shell:
         """
         mkdir -p {output[1]}
-        workflow/scripts/spatial-markers.R {wildcards.sample}
+        workflow/scripts/spatial-spatial-markers.R {wildcards.sample}
         """
     
 

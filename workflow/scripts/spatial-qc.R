@@ -2,7 +2,7 @@
 library(Seurat)
 require(tidyverse)
 require(patchwork)
-
+source("workflow/scripts/spatial-functions.R")
 
 arguments=commandArgs(TRUE)
 
@@ -12,16 +12,7 @@ Spatial_Data=readRDS(paste0("rds/",sampleID,".rds"))
 
 
 
-IMAGE=Read10X_Image(image.dir=paste0("data/",sampleID,"/outs/spatial"),image.name="grayscale.png")
-
-
-
-Spatial_Data@images$"image" <- IMAGE
-
-Spatial_Data@images$"image"@assay <- "Spatial"
-Spatial_Data@images$"image"@assay <- "Spatial"
-
-Spatial_Data@images$"image"@key <- paste0("image","_")
+function_image_fixer(Spatial_Data) -> Spatial_Data
 
 
 plot1 <- VlnPlot(Spatial_Data, features = "nCount_Spatial", pt.size = 0.1,assay="Spatial",group.by="orig.ident") + NoLegend()

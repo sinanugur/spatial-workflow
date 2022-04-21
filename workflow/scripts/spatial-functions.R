@@ -55,3 +55,21 @@ Spatial_Data <- RunUMAP(Spatial_Data, reduction = "pca", dims = 1:dimensionReduc
       }
 }
 
+
+
+function_image_fixer=function(Spatial_Data) {
+
+  IMAGE=Read10X_Image(image.dir=paste0("data/",sampleID,"/outs/spatial"),image.name="tissue_fixed.png")
+
+
+
+Spatial_Data@images$"image" <- IMAGE
+
+Spatial_Data@images$"image"@assay <- "Spatial"
+Spatial_Data@images$"image"@assay <- "Spatial"
+
+Spatial_Data@images$"image"@key <- paste0("image","_")
+
+return(Spatial_Data)
+
+}
