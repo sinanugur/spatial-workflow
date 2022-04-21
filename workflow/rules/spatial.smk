@@ -86,7 +86,8 @@ rule clustermarkers:
 rule clustermarkerplots:
     input:
         "rds/{sample}.rds",
-        "data/{sample}/outs/spatial/tissue_fixed.png"
+        "data/{sample}/outs/spatial/tissue_fixed.png",
+        "{sample}/resolution-{res}/{sample}.positive-markers-forAllClusters.xlsx"
     output:
         directory("{sample}/resolution-{res}/markers")
     shell:
