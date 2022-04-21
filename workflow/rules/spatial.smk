@@ -44,7 +44,8 @@ rule qc:
         "rds/{sample}.rds",
         "data/{sample}/outs/spatial/grayscale.png"
     output:
-        "{sample}/technicals/{sample}.n_counts.pdf"
+        "{sample}/technicals/{sample}.n_counts.pdf",
+        "{sample}/technicals/{sample}.normalization.pdf"
     
     shell:
         """
@@ -70,6 +71,19 @@ rule spatialmetrics:
         """
         workflow/scripts/spatial-metrics.R {wildcards.sample} {wildcards.res}
         """
+
+rule clustermarkers:
+    input:
+        "rds/{sample}.rds"
+    output:
+        "{sample}/resolution-{res}/{sample}.positive-markers-forAllClusters.xlsx",
+        "{sample}/resolution-{res}/{sample}.all-markers-forAllClusters.xlsx"
+    shell:
+        """
+        workflow/scripts/spatial-clustermarkers.R {wildcards.sample} {wildcards.res}
+        """
+
+
 
 rule spatialfeatures:
     input:
