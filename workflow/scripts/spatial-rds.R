@@ -10,7 +10,7 @@ sampleID=arguments[1]
 slice=make.names(arguments[1])
 datadir=c(paste0("data/",sampleID,"/outs/"))
 
-Spatial_Df=function_analyse_spatial(datadir = datadir,slice = slice)
-saveRDS(Spatial_Df,file = paste0("rds/",sampleID,".rds"))
+Spatial_Data=function_analyse_spatial(datadir = datadir,slice = slice)
+saveRDS(Spatial_Data,file = paste0("rds/",sampleID,".rds"))
 
 

@@ -6,7 +6,7 @@ require(tidyverse)
 arguments=commandArgs(TRUE)
 
 sampleID=arguments[1]
-res=arguments[2]
+
 
 Spatial_Data=readRDS(paste0("rds/",sampleID,".rds"))
 
@@ -19,9 +19,15 @@ Spatial_Data@images$"image"@assay <- "Spatial"
 
 Spatial_Data@images$"image"@key <- paste0("image","_")
 
-p1 <- DimPlot(Spatial_Data, reduction = "umap", label = TRUE,label.size = 10,group.by = paste0("SCT_snn_res.",res))
-p2 <- SpatialDimPlot(Spatial_Data, label = TRUE, label.size = 6,group.by = paste0("SCT_snn_res.",res),images=paste0("image"))
 
-ggsave(plot =p1+p2,filename=paste0(sampleID,"/resolution-",res,"/",sampleID,".umap.spatial",".pdf"),width=13,height=7)
+markers=SpatiallyVariableFeatures(Spatial_Data, 
+selection.method = "markvariogram") 
 
+openxlsx::write.xlsx(markers %>% as.data.frame() %>% select(gene=1),file=paste0(sampleID,"/",sampleID,".spatial_markers",".xlsx"))
 
+for (i in markers) {
+
+SpatialFeaturePlot(Spatial_Data, features = i, ncol = 1, alpha = c(0.1, 1),images=paste0("image"))
+ggsave(paste0(sampleID,"/","spatial-markers/",i,".pdf"))
+
+}

@@ -5,6 +5,12 @@ files, = glob_wildcards("data/{sample}/outs/filtered_feature_bc_matrix.h5")
 
 include: "rules/spatial.smk"
 
+resolution=config.get("resolution",["0.8","2.5"])
+
 rule all:
     input:
-        expand("rds/{sample}.rds",sample=files)
+        expand("{sample}/clusteringTree/clusteringTree-{sample}.pdf",sample=files),
+        expand(["{sample}/resolution-" + x + "/{sample}.umap.spatial.pdf" for x in resolution],sample=files),
+        expand(["{sample}/resolution-" + x + "/{sample}.number-of-cells-per-cluster.xlsx" for x in resolution],sample=files),
+        expand("{sample}/{sample}.spatial_markers.xlsx",sample=files),
+        expand("{sample}/technicals/{sample}.n_counts.pdf",sample=files)
