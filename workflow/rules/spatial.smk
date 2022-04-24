@@ -30,13 +30,22 @@ rule imagefix:
     input:
         "data/{sample}/outs/spatial/tissue_lowres_image.png"
     output:
-        "{sample}/TissueImage/{sample}.png",
         "data/{sample}/outs/spatial/tissue_fixed.png"
 
     shell:
         """
-        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output[0]}
-        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output[1]}
+        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        """
+
+rule imagetissue:
+    input:
+        "data/{sample}/outs/spatial/tissue_lowres_image.png"
+    output:
+        "{sample}/TissueImage/{sample}.png"
+    shell:
+        """
+        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+
         """
 
 rule qc:

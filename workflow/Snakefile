@@ -18,3 +18,4 @@ rule all:
         expand("{sample}/technicals/{sample}.n_counts.pdf",sample=files),
         expand("{sample}/technicals/{sample}.normalization.pdf",sample=files),
         expand(["{sample}/resolution-" + x + "/markers" for x in resolution],sample=files),
+        expand("{sample}/TissueImage/{sample}.png",sample=files)
