@@ -27,7 +27,8 @@ for(d in (Positive_Features %>% distinct(cluster) %>% pull())) {
     dir.create(paste0(sampleID,"/resolution-",res,"/markers/","cluster",d,"/"),recursive=TRUE)
 }
 
-for (i in 1:nrow(Positive_Features)) {
+options(warn=-1)
+suppressMessages(for (i in 1:nrow(Positive_Features)) {
 
     gene=Positive_Features[i,]$gene
     cluster=Positive_Features[i,]$cluster
@@ -37,11 +38,11 @@ p2 <- SpatialFeaturePlot(Spatial_Data, features=gene,images=paste0("image"),alph
 p3 <- DotPlot(Spatial_Data, features=gene)
 p4 <- VlnPlot(Spatial_Data,features=gene)
 
-wrap_plots(p1,p2,p3,p4,ncol=2)
+suppressWarnings(wrap_plots(p1,p2,p3,p4,ncol=2) -> wp)
 
-ggsave(paste0(sampleID,"/resolution-",res,"/markers/","cluster",cluster,"/",gene,".pdf"),height=14,width=14)
+ggsave(paste0(sampleID,"/resolution-",res,"/markers/","cluster",cluster,"/",gene,".pdf"),wp,height=14,width=14)
 
-}
+})
 
 
 

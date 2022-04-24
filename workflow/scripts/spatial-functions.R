@@ -46,7 +46,7 @@ Spatial_Data <- RunPCA(Spatial_Data, assay = "SCT", verbose = FALSE)
 dimensionReduction=function_pca_dimensions(Spatial_Data)
 
 Spatial_Data <- FindNeighbors(Spatial_Data, reduction = "pca", dims = 1:dimensionReduction)
-Spatial_Data <- FindClusters(Spatial_Data, verbose = FALSE,resolution = c(0.8,2.6))
+Spatial_Data <- FindClusters(Spatial_Data, verbose = FALSE,resolution = seq(0.1,2.5,0.1))
 Spatial_Data <- RunUMAP(Spatial_Data, reduction = "pca", dims = 1:dimensionReduction)
 
   if(isTRUE(calculatespatialfeatures== TRUE)) {
