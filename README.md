@@ -12,14 +12,15 @@ Quick Start Example
 
 The workflow excepts Visum 10x samples under data folder in this format:
 
-"data/{sample}/outs/filtered_feature_bc_matrix.h5"
+__"data/{sample}/outs/filtered_feature_bc_matrix.h5"__
 
-This will register the directory name (i.e. sample) as sample name for later processing.
+This will register the directory name as sample name for later processing.
 
 You can start the pipeline by calling,
 
 ```
 snakemake -j 20
+
 ```
 
 which will create a 20 threads job.
