@@ -33,10 +33,10 @@ suppressMessages(for (i in 1:nrow(Positive_Features)) {
     gene=Positive_Features[i,]$gene
     cluster=Positive_Features[i,]$cluster
 
-p1 <- FeaturePlot(Spatial_Data, reduction = "umap", features=gene) + scale_colour_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")))
-p2 <- SpatialFeaturePlot(Spatial_Data, features=gene,images=paste0("image"),alpha=c(0.1,1),pt.size.factor=1.2) + scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")))
-p3 <- DotPlot(Spatial_Data, features=gene)
-p4 <- VlnPlot(Spatial_Data,features=gene)
+p1 <- FeaturePlot(Spatial_Data,assay = "SCT", reduction = "umap", features=gene) + scale_colour_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")))
+p2 <- SpatialFeaturePlot(Spatial_Data,assay = "SCT", features=gene,images=paste0("image"),alpha=c(0.1,1),pt.size.factor=1.2) + scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")))
+p3 <- DotPlot(Spatial_Data,assay = "SCT", features=gene)
+p4 <- VlnPlot(Spatial_Data,assay = "SCT",features=gene)
 
 suppressWarnings(wrap_plots(p1,p2,p3,p4,ncol=2) -> wp)
 
