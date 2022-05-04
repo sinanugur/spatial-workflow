@@ -116,6 +116,32 @@ rule spatialfeatures:
         mkdir -p {output[1]}
         workflow/scripts/spatial-spatial-markers.R {wildcards.sample}
         """
+
+rule sc_cluster:
+    input:
+        "scrna/{datafile}.rds"
+    output:
+        "scrna/{datafile}.cluster_markers.xlsx"
+    shell:
+        """
+        workflow/scripts/spatial-sc-cluster.R {wildcards.datafile}
+        """
+
+
+
+rule spotlight:
+    input:
+        "scrna/{datafile}.rds",
+        "rds/{sample}.rds",
+        "scrna/{datafile}.cluster_markers.xlsx"
+
+    output:
+        "rds_decon/{datafile}/{sample}.rds"
+    shell:
+        """
+        workflow/scripts/spatial-spotlight.R {wildcards.sample} {wildcards.datafile}
+        """
+
     
 
 
