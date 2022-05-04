@@ -142,7 +142,15 @@ rule spotlight:
         workflow/scripts/spatial-spotlight.R {wildcards.sample} {wildcards.datafile}
         """
 
-    
 
-
+rule spotlightpdf:
+    input:
+        "scrna/{datafile}.rds",
+        "rds_decon/{datafile}/{sample}.rds"
+    output:
+        "{sample}/deconvolution/spotlight/{sample}-{datafile}.pdf"
+    shell:
+        """
+        workflow/scripts/spatial-spotlight-pdf.R {wildcards.sample} {wildcards.datafile}
+        """
 
