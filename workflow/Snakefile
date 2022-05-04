@@ -27,9 +27,11 @@ if route == "standart":
 
 elif route == "decon":
     scrnadatafiles, = glob_wildcards("scrna/{datafile}.rds")
+    models, = glob_wildcards("models/{modelfile}.rds")
     rule deconvolution:
         input:
-            expand("{sample}/deconvolution/spotlight/{sample}-{datafile}.pdf",datafile=scrnadatafiles,sample=files)
+            expand("{sample}/deconvolution/spotlight/{sample}-{datafile}.pdf",datafile=scrnadatafiles,sample=files),
+            expand("{sample}/deconvolution/gbm/{sample}-{modelfile}.pdf",modelfile=models,sample=files)
             #expand("{sample}/deconvolution/spotlight/{datafile}/"),
             #expand("{sample}/deconvolution/inhouse_gbm/{datafile}/"),
             #expand("{sample}/deconvolution/seurat/{datafile}/")

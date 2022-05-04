@@ -154,3 +154,15 @@ rule spotlightpdf:
         workflow/scripts/spatial-spotlight-pdf.R {wildcards.sample} {wildcards.datafile}
         """
 
+
+rule gbm:
+    input:
+        "rds/{sample}.rds",
+        "models/{modelfile}.rds"
+
+    output:
+        "{sample}/deconvolution/gbm/{sample}-{modelfile}.pdf"
+    shell:
+        """
+        workflow/scripts/spatial-gbmtest.R {wildcards.sample} {wildcards.modelfile}
+        """
