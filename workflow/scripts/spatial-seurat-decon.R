@@ -36,6 +36,8 @@ function_decon_seurat(reference=scrna_data,query=Spatial_Data) -> Spatial_Data
 
 DefaultAssay(Spatial_Data) <- "predictions"
 
+cell_types_all=Idents(scrna_data) %>% unique() %>% as.character()
+
 wp=Seurat::SpatialFeaturePlot(
   object = Spatial_Data,
   features = cell_types_all,
