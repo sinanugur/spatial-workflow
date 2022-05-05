@@ -26,4 +26,4 @@ wp=Seurat::SpatialFeaturePlot(
   alpha = c(0.1, 1),pt.size.factor = 1,ncol=2,images=paste0("image")) & scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn"))) 
 
 
-ggsave(paste0(sampleID,"/deconvolution/spotlight/",sampleID,"-",scrnaID,".pdf"),wp,height=20,width=7)
+ggsave(paste0(sampleID,"/deconvolution/spotlight/",sampleID,"-",scrnaID,"-spotlight.pdf"),wp,height=20,width=7)

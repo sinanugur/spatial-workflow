@@ -148,12 +148,22 @@ rule spotlightpdf:
         "scrna/{datafile}.rds",
         "rds_decon/{datafile}/{sample}.rds"
     output:
-        "{sample}/deconvolution/spotlight/{sample}-{datafile}.pdf"
+        "{sample}/deconvolution/spotlight/{sample}-{datafile}-spotlight.pdf"
     shell:
         """
         workflow/scripts/spatial-spotlight-pdf.R {wildcards.sample} {wildcards.datafile}
         """
 
+rule seuratdecon:
+    input:
+        "scrna/{datafile}.rds",
+        "rds/{sample}.rds"
+    output:
+        "{sample}/deconvolution/seurat/{sample}-{datafile}-seurat.pdf"
+    shell:
+        """
+        workflow/scripts/spatial-seurat.R {wildcards.sample} {wildcards.datafile}
+        """
 
 rule gbm:
     input:
@@ -161,7 +171,7 @@ rule gbm:
         "models/{modelfile}.rds"
 
     output:
-        "{sample}/deconvolution/gbm/{sample}-{modelfile}.pdf"
+        "{sample}/deconvolution/gbm/{sample}-{modelfile}-gbm.pdf"
     shell:
         """
         workflow/scripts/spatial-gbmtest.R {wildcards.sample} {wildcards.modelfile}
