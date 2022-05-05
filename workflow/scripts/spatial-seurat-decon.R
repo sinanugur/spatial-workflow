@@ -22,7 +22,7 @@ function_decon_seurat = function(reference,query){
 anchors <- FindTransferAnchors(reference = reference, query = query, normalization.method = "SCT")
 
 predictions.assay <- TransferData(anchorset = anchors, refdata = reference$seurat_clusters, prediction.assay = TRUE,
-    weight.reduction = query[["pca"]], dims = 1:30)
+    weight.reduction = query[["pca"]], dims = 1:30,k.weight=30)
 query[["predictions"]] <- predictions.assay
 
 
