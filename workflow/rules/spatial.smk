@@ -162,7 +162,7 @@ rule seuratdecon:
         "{sample}/deconvolution/seurat/{sample}-{datafile}-seurat.pdf"
     shell:
         """
-        workflow/scripts/spatial-seurat.R {wildcards.sample} {wildcards.datafile}
+        workflow/scripts/spatial-seurat-decon.R {wildcards.sample} {wildcards.datafile}
         """
 
 rule gbm:
