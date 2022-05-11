@@ -49,7 +49,7 @@ Seurat_Object@meta.data <- Seurat_Object@meta.data %>%
 wp=Seurat::SpatialFeaturePlot(
   object = Seurat_Object,
   features = cell_types_all,
-  alpha = c(0.1, 1),pt.size.factor = 1,ncol=2,images=paste0("image")) & scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")),limits=c(0,1)) 
+  alpha = c(0.1, 1),pt.size.factor = 1,ncol=2,images=paste0("image")) & scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")),limits=c(0,1)) & theme(legend.title = element_text(size=4),legend.key.size = unit(0.2,"cm"),legend.text = element_text(size=3),legend.margin=margin(t = 0,b = 0, unit='cm'),plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm"))
 
 
 ggsave(paste0(sampleID,"/deconvolution/gbm/",sampleID,"-",modelID,"-gbm.pdf"),wp,height=20,width=7)
