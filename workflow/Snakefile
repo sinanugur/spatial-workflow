@@ -11,7 +11,6 @@ resolution=config.get("resolution",["0.8","2.5"])
 route=config.get("route","standart")
 
 if route == "standart":
-
     rule all:
         input:
             expand("{sample}/clusteringTree/clusteringTree-{sample}.pdf",sample=files),
@@ -22,9 +21,9 @@ if route == "standart":
             expand("{sample}/spatial-markers/{sample}.spatial_markers.xlsx",sample=files),
             expand("{sample}/technicals/{sample}.n_counts.pdf",sample=files),
             expand("{sample}/technicals/{sample}.normalization.pdf",sample=files),
-            expand(["{sample}/resolution-" + x + "/markers" for x in resolution],sample=files),
             expand("{sample}/TissueImage/{sample}.png",sample=files)
 
+  
 elif route == "decon":
     scrnadatafiles, = glob_wildcards("scrna/{datafile}.rds")
     models, = glob_wildcards("models/{modelfile}.rds")
@@ -36,4 +35,8 @@ elif route == "decon":
             #expand("{sample}/deconvolution/spotlight/{datafile}/"),
             #expand("{sample}/deconvolution/inhouse_gbm/{datafile}/"),
             #expand("{sample}/deconvolution/seurat/{datafile}/")
+
+elif route == "clusterplots":
+    rule plotting:
+        expand(["{sample}/resolution-" + x + "/markers" for x in resolution],sample=files)
 
