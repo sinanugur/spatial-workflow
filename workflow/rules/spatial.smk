@@ -28,23 +28,23 @@ rule clustree:
 
 rule imagefix:
     input:
-        "data/{sample}/outs/spatial/tissue_lowres_image.png"
+        "data/{sample}/outs/spatial/tissue_hires_image.png"
     output:
         "data/{sample}/outs/spatial/tissue_fixed.png"
 
     shell:
         """
-        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
         """
 
 rule imagetissue:
     input:
-        "data/{sample}/outs/spatial/tissue_lowres_image.png"
+        "data/{sample}/outs/spatial/tissue_hires_image.png"
     output:
         "{sample}/TissueImage/{sample}.png"
     shell:
         """
-        convert {input} -sharpen 0x5 -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
 
         """
 

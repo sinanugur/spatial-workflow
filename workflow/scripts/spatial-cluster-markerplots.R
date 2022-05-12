@@ -40,7 +40,7 @@ p4 <- VlnPlot(Spatial_Data,assay = "SCT",features=gene)
 
 suppressWarnings(wrap_plots(p1,p2,p3,p4,ncol=2) -> wp)
 
-ggsave(paste0(sampleID,"/resolution-",res,"/markers/","cluster",cluster,"/",gene,".pdf"),wp,height=14,width=14)
+ggsave(paste0(sampleID,"/resolution-",res,"/markers/","cluster",cluster,"/",gene,".pdf"),wp,height=10,width=10)
 
 })
 
