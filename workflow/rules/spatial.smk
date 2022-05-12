@@ -28,7 +28,7 @@ rule clustree:
 
 rule imagefix:
     input:
-        "data/{sample}/outs/spatial/tissue_hires_image.png"
+        "data/{sample}/outs/spatial/tissue_lowres_image.png"
     output:
         "data/{sample}/outs/spatial/tissue_fixed.png"
 
@@ -39,7 +39,7 @@ rule imagefix:
 
 rule imagetissue:
     input:
-        "data/{sample}/outs/spatial/tissue_hires_image.png"
+        "data/{sample}/outs/spatial/tissue_lowres_image.png"
     output:
         "{sample}/TissueImage/{sample}.png"
     shell:
