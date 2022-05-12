@@ -38,5 +38,6 @@ elif route == "decon":
 
 elif route == "clusterplots":
     rule plotting:
-        expand(["{sample}/resolution-" + x + "/markers" for x in resolution],sample=files)
+        input:
+            expand(["{sample}/resolution-" + x + "/markers" for x in resolution],sample=files)
 
