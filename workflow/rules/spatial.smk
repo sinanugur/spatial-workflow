@@ -67,8 +67,10 @@ rule umap:
         "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
         "{sample}/resolution-{res}/{sample}.umap.spatial.pdf"
-    run:
-        shell("workflow/scripts/spatial-umap.R {wildcards.sample} {wildcards.res}")
+    shell:
+        """
+        workflow/scripts/spatial-umap.R {wildcards.sample} {wildcards.res}
+        """
 
 
 rule spatialmetrics:
