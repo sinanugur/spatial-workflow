@@ -15,9 +15,6 @@ Spatial_Data=readRDS(paste0("rds/",sampleID,".rds"))
 scrna_data=readRDS(paste0("scrna/",scrnaID,".rds"))
 
 
-function_image_fixer(Spatial_Data) -> Spatial_Data
-
-
 
 openxlsx::read.xlsx(paste0("scrna/",scrnaID,".cluster_markers.xlsx")) -> cluster_markers_all
 

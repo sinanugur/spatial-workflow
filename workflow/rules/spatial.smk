@@ -148,7 +148,8 @@ rule spotlight:
 rule spotlightpdf:
     input:
         "scrna/{datafile}.rds",
-        "rds_decon/{datafile}/{sample}.rds"
+        "rds_decon/{datafile}/{sample}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
         "results/{sample}/deconvolution/spotlight/{sample}-{datafile}-spotlight.pdf"
     shell:
@@ -159,7 +160,8 @@ rule spotlightpdf:
 rule seuratdecon:
     input:
         "scrna/{datafile}.rds",
-        "rds/{sample}.rds"
+        "rds/{sample}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
         "results/{sample}/deconvolution/seurat/{sample}-{datafile}-seurat.pdf"
     shell:
@@ -170,7 +172,8 @@ rule seuratdecon:
 rule gbm:
     input:
         "rds/{sample}.rds",
-        "models/{modelfile}.rds"
+        "models/{modelfile}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
 
     output:
         "results/{sample}/deconvolution/gbm/{sample}-{modelfile}-gbm.pdf"
