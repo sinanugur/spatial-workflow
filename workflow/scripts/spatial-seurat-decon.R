@@ -17,12 +17,12 @@ scrna_data=readRDS(paste0("scrna/",scrnaID,".rds"))
 function_image_fixer(Spatial_Data) -> Spatial_Data
 
 
-function_decon_seurat = function(reference,query){
+function_decon_seurat = function(reference,query,k.weight=30){
 
 anchors <- FindTransferAnchors(reference = reference, query = query, normalization.method = "SCT")
 
 predictions.assay <- TransferData(anchorset = anchors, refdata = reference$seurat_clusters, prediction.assay = TRUE,
-    weight.reduction = query[["pca"]], dims = 1:30,k.weight=30)
+    weight.reduction = query[["pca"]], dims = 1:30,k.weight=k.weight)
 query[["predictions"]] <- predictions.assay
 
 
@@ -31,7 +31,10 @@ return(query)
 
 
 
-function_decon_seurat(reference=scrna_data,query=Spatial_Data) -> Spatial_Data
+tryCatch(function_decon_seurat(reference=scrna_data,query=Spatial_Data) -> Spatial_Data,
+
+
+error=function_decon_seurat(reference=scrna_data,query=Spatial_Data,k.weight=20) -> Spatial_Data)
 
 
 DefaultAssay(Spatial_Data) <- "predictions"
