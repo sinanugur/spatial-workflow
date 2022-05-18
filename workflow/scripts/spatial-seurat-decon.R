@@ -34,7 +34,7 @@ return(query)
 tryCatch(function_decon_seurat(reference=scrna_data,query=Spatial_Data) -> Spatial_Data,
 
 
-error=function_decon_seurat(reference=scrna_data,query=Spatial_Data,k.weight=20) -> Spatial_Data)
+finally=function_decon_seurat(reference=scrna_data,query=Spatial_Data,k.weight=20) -> Spatial_Data)
 
 
 DefaultAssay(Spatial_Data) <- "predictions"
