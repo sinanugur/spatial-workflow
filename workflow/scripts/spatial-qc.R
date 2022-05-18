@@ -34,4 +34,4 @@ p2 <- GroupCorrelationPlot(Spatial_Data, assay = "SCT", cor = "nCount_Spatial_co
 
 wrap_plots(p1, p2,ncol=2)
 
-ggsave(filename=paste0(sampleID,"/technicals/",sampleID,".normalization.pdf"),width=13,height=7)
+ggsave(filename=paste0("results/",sampleID,"/technicals/",sampleID,".normalization.pdf"),width=13,height=7)

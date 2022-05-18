@@ -18,9 +18,9 @@ Idents(object = Spatial_Data) <- Spatial_Data@meta.data[[SCT_]]
 
 all_markers=FindAllMarkers(Spatial_Data)
 
-openxlsx::write.xlsx(all_markers,file=paste0(sampleID,"/resolution-",res,"/",sampleID,".all-markers-forAllClusters",".xlsx"))
+openxlsx::write.xlsx(all_markers,file=paste0("results/",sampleID,"/resolution-",res,"/",sampleID,".all-markers-forAllClusters",".xlsx"))
 
-openxlsx::write.xlsx(all_markers %>% filter(avg_log2FC > 0),file=paste0(sampleID,"/resolution-",res,"/",sampleID,".positive-markers-forAllClusters",".xlsx"))
+openxlsx::write.xlsx(all_markers %>% filter(avg_log2FC > 0),file=paste0("results/",sampleID,"/resolution-",res,"/",sampleID,".positive-markers-forAllClusters",".xlsx"))
 
 
 

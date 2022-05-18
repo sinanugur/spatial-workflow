@@ -20,6 +20,6 @@ p2 <- SpatialDimPlot(Spatial_Data, label = TRUE, label.size = 6,group.by = paste
 suppressWarnings(wrap_plots(p1,p2,ncol=2) -> wp)
 
 
-ggsave(plot =wp,filename=paste0(sampleID,"/resolution-",res,"/",sampleID,".umap.spatial",".pdf"),width=13,height=7)
+ggsave(plot =wp,filename=paste0("results/",sampleID,"/resolution-",res,"/",sampleID,".umap.spatial",".pdf"),width=13,height=7)
 
 

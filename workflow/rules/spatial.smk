@@ -22,7 +22,7 @@ rule clustree:
     input:
         "rds/{sample}.rds"
     output:
-        "{sample}/clusteringTree/clusteringTree-{sample}.pdf"
+        "results/{sample}/clusteringTree/clusteringTree-{sample}.pdf"
     shell:
         "workflow/scripts/clusteringTree.R {wildcards.sample}"
 
@@ -41,7 +41,7 @@ rule imagetissue:
     input:
         "data/{sample}/outs/spatial/tissue_lowres_image.png"
     output:
-        "{sample}/TissueImage/{sample}.png"
+        "results/{sample}/TissueImage/{sample}.png"
     shell:
         """
         convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
@@ -53,8 +53,8 @@ rule qc:
         "rds/{sample}.rds",
         "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
-        "{sample}/technicals/{sample}.n_counts.pdf",
-        "{sample}/technicals/{sample}.normalization.pdf"
+        "results/{sample}/technicals/{sample}.n_counts.pdf",
+        "results/{sample}/technicals/{sample}.normalization.pdf"
     
     shell:
         """
@@ -66,7 +66,7 @@ rule umap:
         "rds/{sample}.rds",
         "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
-        "{sample}/resolution-{res}/{sample}.umap.spatial.pdf"
+        "results/{sample}/resolution-{res}/{sample}.umap.spatial.pdf"
     shell:
         """
         workflow/scripts/spatial-umap.R {wildcards.sample} {wildcards.res}
@@ -77,7 +77,7 @@ rule spatialmetrics:
     input:
         "rds/{sample}.rds"
     output:
-        "{sample}/resolution-{res}/{sample}.number-of-cells-per-cluster.xlsx"
+        "results/{sample}/resolution-{res}/{sample}.number-of-cells-per-cluster.xlsx"
     shell:
         """
         workflow/scripts/spatial-metrics.R {wildcards.sample} {wildcards.res}
@@ -87,8 +87,8 @@ rule clustermarkers:
     input:
         "rds/{sample}.rds"
     output:
-        "{sample}/resolution-{res}/{sample}.positive-markers-forAllClusters.xlsx",
-        "{sample}/resolution-{res}/{sample}.all-markers-forAllClusters.xlsx"
+        "results/{sample}/resolution-{res}/{sample}.positive-markers-forAllClusters.xlsx",
+        "results/{sample}/resolution-{res}/{sample}.all-markers-forAllClusters.xlsx"
     shell:
         """
         workflow/scripts/spatial-cluster-markers.R {wildcards.sample} {wildcards.res}
@@ -98,9 +98,9 @@ rule clustermarkerplots:
     input:
         "rds/{sample}.rds",
         "data/{sample}/outs/spatial/tissue_fixed.png",
-        "{sample}/resolution-{res}/{sample}.positive-markers-forAllClusters.xlsx"
+        "results/{sample}/resolution-{res}/{sample}.positive-markers-forAllClusters.xlsx"
     output:
-        directory("{sample}/resolution-{res}/markers")
+        directory("results/{sample}/resolution-{res}/markers")
     shell:
         """
         workflow/scripts/spatial-cluster-markerplots.R {wildcards.sample} {wildcards.res}
@@ -111,8 +111,8 @@ rule spatialfeatures:
         "rds/{sample}.rds",
         "data/{sample}/outs/spatial/tissue_fixed.png"
     output:
-        "{sample}/spatial-markers/{sample}.spatial_markers.xlsx",
-        directory("{sample}/spatial-markers/plots")
+        "results/{sample}/spatial-markers/{sample}.spatial_markers.xlsx",
+        directory("results/{sample}/spatial-markers/plots")
     shell:
         """
         mkdir -p {output[1]}
@@ -150,7 +150,7 @@ rule spotlightpdf:
         "scrna/{datafile}.rds",
         "rds_decon/{datafile}/{sample}.rds"
     output:
-        "{sample}/deconvolution/spotlight/{sample}-{datafile}-spotlight.pdf"
+        "results/{sample}/deconvolution/spotlight/{sample}-{datafile}-spotlight.pdf"
     shell:
         """
         workflow/scripts/spatial-spotlight-pdf.R {wildcards.sample} {wildcards.datafile}
@@ -161,7 +161,7 @@ rule seuratdecon:
         "scrna/{datafile}.rds",
         "rds/{sample}.rds"
     output:
-        "{sample}/deconvolution/seurat/{sample}-{datafile}-seurat.pdf"
+        "results/{sample}/deconvolution/seurat/{sample}-{datafile}-seurat.pdf"
     shell:
         """
         workflow/scripts/spatial-seurat-decon.R {wildcards.sample} {wildcards.datafile}
@@ -173,7 +173,7 @@ rule gbm:
         "models/{modelfile}.rds"
 
     output:
-        "{sample}/deconvolution/gbm/{sample}-{modelfile}-gbm.pdf"
+        "results/{sample}/deconvolution/gbm/{sample}-{modelfile}-gbm.pdf"
     shell:
         """
         workflow/scripts/spatial-gbmtest.R {wildcards.sample} {wildcards.modelfile}
