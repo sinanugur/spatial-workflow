@@ -16,7 +16,7 @@ function_image_fixer(Spatial_Data) -> Spatial_Data
 markers=SpatiallyVariableFeatures(Spatial_Data, 
 selection.method = "markvariogram") 
 
-openxlsx::write.xlsx(markers %>% as.data.frame() %>% select(gene=1),file=paste0(sampleID,"/spatial-markers/",sampleID,".spatial_markers",".xlsx"))
+openxlsx::write.xlsx(markers %>% as.data.frame() %>% select(gene=1),file=paste0("results/",sampleID,"/spatial-markers/",sampleID,".spatial_markers",".xlsx"))
 options(warn=-1)
 for (i in markers) {
 
