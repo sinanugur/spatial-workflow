@@ -20,7 +20,7 @@ domanska_mucosas=data.frame(gene=c("LYVE1","F13A1","FOLR2","SELENOP","APOE","SLC
 
 domanska_markers=bind_rows(domanska_mucosas,domanska_muscularis) %>% distinct(gene) %>% pull()
 
-
+DefaultAssay(Spatial_Data) <- "Spatial"
 
 for (i in domanska_markers) {
 
