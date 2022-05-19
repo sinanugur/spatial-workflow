@@ -21,7 +21,9 @@ if route == "standart":
             expand("results/{sample}/spatial-markers/{sample}.spatial_markers.xlsx",sample=files),
             expand("results/{sample}/technicals/{sample}.n_counts.pdf",sample=files),
             expand("results/{sample}/technicals/{sample}.normalization.pdf",sample=files),
-            expand("results/{sample}/TissueImage/{sample}.png",sample=files)
+            expand("results/{sample}/TissueImage/{sample}.png",sample=files),
+            expand("results/{sample}/selected-markers/plots",sample=files)
+
 
   
 elif route == "decon":

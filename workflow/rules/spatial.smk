@@ -119,6 +119,19 @@ rule spatialfeatures:
         workflow/scripts/spatial-spatial-markers.R {wildcards.sample}
         """
 
+rule selected_markers:
+    input:
+        "rds/{sample}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
+    output:
+        directory("results/{sample}/selected-markers/plots")
+    shell:
+        """
+        mkdir -p {output}
+        workflow/scripts/spatial-selected-markers.R {wildcards.sample}
+        """
+
+
 rule sc_cluster:
     input:
         "scrna/{datafile}.rds"
