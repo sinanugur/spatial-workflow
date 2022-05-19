@@ -24,7 +24,7 @@ domanska_markers=bind_rows(domanska_mucosas,domanska_muscularis) %>% distinct(ge
 
 for (i in domanska_markers) {
 
-SpatialFeaturePlot(Spatial_Data, features = i, ncol = 1, alpha = c(0.1, 1),images=paste0("image"),pt.size.factor=1.1) + scale_colour_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")))
-ggsave(paste0("results/",sampleID,"/","selected-markers/plots/",i,".pdf"))
+try({SpatialFeaturePlot(Spatial_Data, features = i, ncol = 1, alpha = c(0.1, 1),images=paste0("image"),pt.size.factor=1.1) + scale_colour_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn")))
+ggsave(paste0("results/",sampleID,"/","selected-markers/plots/",i,".pdf"))})
 
 }
