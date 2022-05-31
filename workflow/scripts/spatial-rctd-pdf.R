@@ -3,6 +3,9 @@
 library(Seurat)
 require(tidyverse)
 
+
+
+source("workflow/scripts/spatial-functions.R")
 arguments=commandArgs(TRUE)
 
 sampleID=arguments[1]
