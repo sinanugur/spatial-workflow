@@ -11,7 +11,7 @@ arguments=commandArgs(TRUE)
 sampleID=arguments[1]
 scrnaID=arguments[2]
 
-Spatial_Data=readRDS(paste0("rds_decon/",scrnaID,"/",sampleID,".rds"))
+Spatial_Data=readRDS(paste0("rds/",sampleID,".rds"))
 scrna_data=readRDS(paste0("scrna/",scrnaID,".rds"))
 
 
@@ -23,7 +23,7 @@ function_image_fixer(Spatial_Data) -> Spatial_Data
 counts <- data.frame(scrna_data@assays$RNA@counts)
 colnames(counts) <- colnames(scrna_data)
 meta_data <- data.frame(scrna_data@meta.data)
-cell_types <- meta_data$seurat_clusters
+cell_types <- meta_data$seurat_clusters %>% make.names()
 names(cell_types) <- rownames(scrna_data@meta.data)
 cell_types <- as.factor(cell_types)
 nUMI_df <- data.frame(colSums(scrna_data@assays$RNA@counts))
@@ -58,7 +58,7 @@ myRCTD <- run.RCTD(myRCTD,doublet_mode = "full")
 
 Spatial_Data@meta.data <- Spatial_Data@meta.data %>%
   tibble::rownames_to_column("barcodes") %>%
-  dplyr::left_join(myRCTD@results$weights %>% as.data.frame() %>% rename_all(~paste0("RCTD",.x)) %>% rownames_to_column("barcodes"), by = "barcodes") %>%
+  dplyr::left_join(myRCTD@results$weights %>% as.data.frame() %>% rownames_to_column("barcodes"), by = "barcodes") %>%
   tibble::column_to_rownames("barcodes")
 
 
