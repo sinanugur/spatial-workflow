@@ -157,6 +157,29 @@ rule spotlight:
         workflow/scripts/spatial-spotlight.R {wildcards.sample} {wildcards.datafile}
         """
 
+rule rctd:
+    input:
+        "scrna/{datafile}.rds",
+        "rds/{sample}.rds"
+
+    output:
+        "rds_rctd/{datafile}/{sample}.rds"
+    shell:
+        """
+        workflow/scripts/spatial-rctd.R {wildcards.sample} {wildcards.datafile}
+        """
+
+rule rctdpdf:
+    input:
+        "rds_rctd/{datafile}/{sample}.rds"
+
+    output:
+        "results/{sample}/deconvolution/rctd/{sample}-{datafile}-rctd.pdf"
+    shell:
+        """
+        workflow/scripts/spatial-rctd-pdf.R {wildcards.sample} {wildcards.datafile}
+        """
+
 
 rule spotlightpdf:
     input:
