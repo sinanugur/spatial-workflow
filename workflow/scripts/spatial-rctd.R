@@ -52,7 +52,7 @@ nUMI <- colSums(counts) # In this case, total counts per pixel is nUMI
 
 puck<- SpatialRNA(coords = coords,counts = counts,nUMI = nUMI)
 
-myRCTD <- create.RCTD(puck,reference,max_cores = 10,UMI_min = 20)
+myRCTD <- create.RCTD(puck,reference,max_cores = 5,UMI_min = 20)
 myRCTD <- run.RCTD(myRCTD,doublet_mode = "full")
 
 

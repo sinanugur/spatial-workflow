@@ -164,6 +164,10 @@ rule rctd:
 
     output:
         "rds_rctd/{datafile}/{sample}.rds"
+
+    threads: 5
+    resources:
+        mem_mb=30000
     shell:
         """
         workflow/scripts/spatial-rctd.R {wildcards.sample} {wildcards.datafile}
