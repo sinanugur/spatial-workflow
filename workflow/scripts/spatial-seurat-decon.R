@@ -1,7 +1,19 @@
 #!/usr/bin/env Rscript
 
-library(Seurat)
+require(Seurat)
 require(tidyverse)
+require(viridis)
+
+mylabels<-function(breaks) {
+  
+  middle=round(length(breaks)/2)
+  breaks[middle] -> middle
+  
+  data.frame(breaks=breaks) %>% dplyr::mutate(labels=case_when(breaks == max(breaks) ~ as.character(breaks),breaks == min(breaks) ~ as.character(breaks),breaks == middle ~ as.character(breaks), TRUE~ as.character(""))) %>% pull(labels)
+  
+}
+
+params=list(k.anchor=30,k.score=5,k.filter=100,k.weight=30,n.trees=100)
 
 
 source("workflow/scripts/spatial-functions.R")
@@ -19,7 +31,11 @@ function_image_fixer(Spatial_Data) -> Spatial_Data
 
 function_decon_seurat = function(reference,query,k.weight=30){
 
-anchors <- FindTransferAnchors(reference = reference, query = query, normalization.method = "SCT")
+anchors <- FindTransferAnchors(reference = reference, query = query, normalization.method = "SCT",
+k.anchor = params$k.anchor,
+k.score = params$k.score,
+k.filter=params$k.filter,
+n.trees = params$n.trees)
 
 predictions.assay <- TransferData(anchorset = anchors, refdata = reference$seurat_clusters, prediction.assay = TRUE,
     weight.reduction = query[["pca"]], dims = 1:30,k.weight=k.weight)
@@ -32,7 +48,7 @@ return(query)
 
 
 
-for (i in c(30,20)) {
+for (i in c(params$k.weight,20)) {
 
 try({
   function_decon_seurat(reference=scrna_data,query=Spatial_Data,k.weight=i) -> Spatial_Data
@@ -50,8 +66,6 @@ cell_types_all=Idents(scrna_data) %>% unique() %>% as.character()
 
 wp=Seurat::SpatialFeaturePlot(
   object = Spatial_Data,
-  features = cell_types_all,
-  alpha = c(0.1, 1),pt.size.factor = 1,ncol=2,images=paste0("image")) & scale_fill_gradientn(colours = rev(RColorBrewer::brewer.pal(n = 11, name = "RdYlGn"))) & theme(legend.title = element_text(size=4),legend.key.size = unit(0.2,"cm"),legend.text = element_text(size=3),legend.margin=margin(t = 0,b = 0, unit='cm'),plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm"))
-
+  features = cell_types_all,alpha = c(0.7, 1),pt.size.factor = 1.5,ncol=2,images=paste0("slice1")) & theme(legend.title = element_text(size=6),legend.key.size = unit(1,"cm"),legend.text = element_text(size=6),legend.margin=margin(t = 0,b = 0, unit='cm'),plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm")) & scale_fill_binned(type = "viridis",n.breaks=20,labels=mylabels)
 
 ggsave(paste0("results/",sampleID,"/deconvolution/seurat/",sampleID,"-",scrnaID,"-seurat.pdf"),wp,height=18,width=8,useDingbats=TRUE)
