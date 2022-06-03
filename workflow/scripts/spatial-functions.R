@@ -73,3 +73,17 @@ Spatial_Data@images$"image"@key <- paste0("image","_")
 return(Spatial_Data)
 
 }
+
+
+mylabels<-function(breaks) {
+  
+  try({
+  middle=round(length(breaks)/2)
+  breaks[middle] -> middle
+  
+  data.frame(breaks=breaks) %>% dplyr::mutate(labels=case_when(breaks == max(breaks) ~ as.character(breaks),breaks == min(breaks) ~ as.character(breaks),breaks == middle ~ as.character(breaks), TRUE~ as.character(""))) %>% pull(labels) -> labels
+  
+  return(labels)
+  })
+  return(c(0))
+}
