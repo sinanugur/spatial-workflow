@@ -20,7 +20,7 @@ cell_types_all=Idents(scrna_data) %>% unique() %>% as.character() %>% make.names
 function_image_fixer(Spatial_Data) -> Spatial_Data
 
 
-counts <- data.frame(scrna_data@assays$RNA@counts)
+counts <- scrna_data@assays$RNA@counts
 colnames(counts) <- colnames(scrna_data)
 meta_data <- data.frame(scrna_data@meta.data)
 cell_types <- meta_data$seurat_clusters %>% make.names()
