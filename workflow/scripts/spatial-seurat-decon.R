@@ -57,6 +57,8 @@ cell_types_all=Idents(scrna_data) %>% unique() %>% as.character()
 
 wp=Seurat::SpatialFeaturePlot(
   object = Spatial_Data,
-  features = cell_types_all,alpha = c(0.7, 1),pt.size.factor = 1.5,ncol=2,images=paste0("image")) & theme(legend.title = element_text(size=6),legend.key.size = unit(1,"cm"),legend.text = element_text(size=6),legend.margin=margin(t = 0,b = 0, unit='cm'),plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm")) & scale_fill_continuous(type = "viridis",labels=mylabels)
+  features = cell_types_all,alpha = c(0.7, 1),pt.size.factor = 1.5,ncol=2,images=paste0("image")) & 
+  scale_fill_continuous(type = "viridis",labels=mylabels) &   theme(legend.title = element_text(size=4),legend.key.size = unit(0.2,"cm"),legend.text = element_text(size=3),legend.margin=margin(t = 0,b = 0, unit='cm'),plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm"))
+
 
 ggsave(paste0("results/",sampleID,"/deconvolution/seurat/",sampleID,"-",scrnaID,"-seurat.pdf"),wp,height=18,width=8,useDingbats=TRUE)
