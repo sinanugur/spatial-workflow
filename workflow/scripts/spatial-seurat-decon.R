@@ -39,7 +39,7 @@ return(query)
 
 
 
-for (i in c(params$k.weight,20)) {
+for (i in c(params$k.weight,20,10)) {
 
 try({
   function_decon_seurat(reference=scrna_data,query=Spatial_Data,k.weight=i) -> Spatial_Data
