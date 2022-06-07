@@ -4,7 +4,7 @@ require(Seurat)
 require(tidyverse)
 require(viridis)
 
-params=list(k.anchor=30,k.score=5,k.filter=100,n.trees=100)
+params=list(k.anchor=23,k.score=5,k.filter=100,n.trees=100)
 
 
 source("workflow/scripts/spatial-functions.R")
