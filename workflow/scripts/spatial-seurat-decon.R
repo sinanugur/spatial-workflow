@@ -4,7 +4,7 @@ require(Seurat)
 require(tidyverse)
 require(viridis)
 
-params=list(k.anchor=30,k.score=5,k.filter=100,k.weight=30,n.trees=100)
+params=list(k.anchor=30,k.score=5,k.filter=100,n.trees=100)
 
 
 source("workflow/scripts/spatial-functions.R")
@@ -20,7 +20,7 @@ scrna_data=readRDS(paste0("scrna/",scrnaID,".rds"))
 function_image_fixer(Spatial_Data) -> Spatial_Data
 
 
-function_decon_seurat = function(reference,query,k.weight=30){
+function_decon_seurat = function(reference,query){
 
 anchors <- FindTransferAnchors(reference = reference, query = query, normalization.method = "SCT",
 k.anchor = params$k.anchor,
@@ -28,8 +28,7 @@ k.score = params$k.score,
 k.filter=params$k.filter,
 n.trees = params$n.trees)
 
-predictions.assay <- TransferData(anchorset = anchors, refdata = reference$seurat_clusters, prediction.assay = TRUE,
-    weight.reduction = query[["pca"]], dims = 1:30,k.weight=k.weight)
+predictions.assay <- TransferData(anchorset = anchors, refdata = reference$seurat_clusters, prediction.assay = TRUE)
 query[["predictions"]] <- predictions.assay
 
 
@@ -38,18 +37,7 @@ return(query)
 
 
 
-
-for (i in c(params$k.weight,20,10)) {
-
-try({
-  function_decon_seurat(reference=scrna_data,query=Spatial_Data,k.weight=i) -> Spatial_Data
-  break
-  }
-  )
-
-
-}
-
+function_decon_seurat(reference=scrna_data,query=Spatial_Data) -> Spatial_Data
 
 DefaultAssay(Spatial_Data) <- "predictions"
 
