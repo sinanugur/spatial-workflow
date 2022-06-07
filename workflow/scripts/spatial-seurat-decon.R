@@ -4,6 +4,8 @@ require(Seurat)
 require(tidyverse)
 require(viridis)
 
+
+
 params=list(k.anchor=23,k.score=5,k.filter=100,n.trees=100)
 
 
@@ -20,10 +22,10 @@ scrna_data=readRDS(paste0("scrna/",scrnaID,".rds"))
 function_image_fixer(Spatial_Data) -> Spatial_Data
 
 
-function_decon_seurat = function(reference,query){
+function_decon_seurat = function(reference,query,anc){
 
 anchors <- FindTransferAnchors(reference = reference, query = query, normalization.method = "SCT",
-k.anchor = params$k.anchor,
+k.anchor = anc,
 k.score = params$k.score,
 k.filter=params$k.filter,
 n.trees = params$n.trees)
@@ -37,7 +39,16 @@ return(query)
 
 
 
-function_decon_seurat(reference=scrna_data,query=Spatial_Data) -> Spatial_Data
+for (i in c(params$k.anchor,20,15,10,5)) {
+
+try({
+  function_decon_seurat(reference=scrna_data,query=Spatial_Data,anc=i) -> Spatial_Data
+  break
+  }
+  )
+
+
+}
 
 DefaultAssay(Spatial_Data) <- "predictions"
 
