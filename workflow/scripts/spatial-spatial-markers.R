@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
-library(Seurat)
+require(Seurat)
 require(tidyverse)
+require(viridis)
 source("workflow/scripts/spatial-functions.R")
 
 arguments=commandArgs(TRUE)
