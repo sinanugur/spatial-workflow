@@ -177,7 +177,8 @@ rule rctd:
 
 rule rctdpdf:
     input:
-        "rds_rctd/{datafile}/{sample}.rds"
+        "rds_rctd/{datafile}/{sample}.rds",
+        "data/{sample}/outs/spatial/tissue_fixed.png"
 
     output:
         "results/{sample}/deconvolution/rctd/{sample}-{datafile}-rctd.pdf"
