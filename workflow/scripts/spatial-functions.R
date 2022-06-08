@@ -85,5 +85,5 @@ mylabels<-function(breaks) {
   
   return(labels)
   })
-  return(c("0"))
+  return(c(""))
 }
