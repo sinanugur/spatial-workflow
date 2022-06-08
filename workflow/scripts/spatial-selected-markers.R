@@ -25,7 +25,7 @@ DefaultAssay(Spatial_Data) <- "Spatial"
 
 for (i in domanska_markers) {
 
-try({SpatialFeaturePlot(Spatial_Data, features = i, ncol = 1, alpha = c(0.1, 1),images=paste0("image"),pt.size.factor=1.1) + scale_colour_gradientn(type="viridis")
+try({SpatialFeaturePlot(Spatial_Data, features = i, ncol = 1, alpha = c(0.1, 1),images=paste0("image"),pt.size.factor=1.1) + scale_fill_continuous(type="viridis")
 ggsave(paste0("results/",sampleID,"/","selected-markers/plots/",i,".pdf"))})
 
 }
