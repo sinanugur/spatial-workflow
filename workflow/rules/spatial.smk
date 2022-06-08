@@ -34,7 +34,8 @@ rule imagefix:
 
     shell:
         """
-        convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        #convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        workflow/scripts/saturation 0.4 {input} {output}
         """
 
 rule imagetissue:
@@ -44,7 +45,8 @@ rule imagetissue:
         "results/{sample}/TissueImage/{sample}.png"
     shell:
         """
-        convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        #convert {input} -colorspace HCL -channel R -evaluate set 67% +channel -colorspace sRGB {output}
+        workflow/scripts/saturation 0.4 {input} {output}
 
         """
 
