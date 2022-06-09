@@ -212,7 +212,7 @@ rule seuratdecon:
         workflow/scripts/spatial-seurat-decon.R {wildcards.sample} {wildcards.datafile}
         """
 
-rule seuratdecon:
+rule dwls:
     input:
         "scrna/{datafile}.rds",
         "rds/{sample}.rds"
