@@ -212,6 +212,17 @@ rule seuratdecon:
         workflow/scripts/spatial-seurat-decon.R {wildcards.sample} {wildcards.datafile}
         """
 
+rule seuratdecon:
+    input:
+        "scrna/{datafile}.rds",
+        "rds/{sample}.rds"
+    output:
+        "DWLS_assay/{datafile}/{sample}.rds"
+    shell:
+        """
+        workflow/scripts/spatial-giotto.R {wildcards.sample} {wildcards.datafile}
+        """
+
 rule gbm:
     input:
         "rds/{sample}.rds",
