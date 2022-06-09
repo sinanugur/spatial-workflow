@@ -52,7 +52,7 @@ sc_data <- runPCA(gobject = sc_data, genes_to_use = featgenes, scale_unit = F)
 signPCA(sc_data, genes_to_use = featgenes, scale_unit = F)
 
 
-sc_data@cell_metadata$leiden_clus <- as.character(sc@meta.data[,"seurat_clusters"])
+sc_data@cell_metadata$leiden_clus <- as.character(scrna_data@meta.data[,"seurat_clusters"])
 scran_markers_subclusters = findMarkers_one_vs_all(gobject = sc_data,
                                                    method = 'scran',
                                                    expression_values = 'normalized',
