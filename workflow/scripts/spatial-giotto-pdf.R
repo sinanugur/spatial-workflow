@@ -13,7 +13,7 @@ sampleID=arguments[1]
 scrnaID=arguments[2]
 
 Spatial_Data=readRDS(paste0("rds/",sampleID,".rds"))
-dwls_data=readRDS(DWLS,file = paste0("DWLS_assay/",scrnaID,"/",sampleID,".rds"))
+dwls_data=readRDS(paste0("DWLS_assay/",scrnaID,"/",sampleID,".rds"))
 
 
 function_image_fixer(Spatial_Data) -> Spatial_Data
