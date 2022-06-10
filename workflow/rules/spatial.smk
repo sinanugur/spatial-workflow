@@ -223,6 +223,16 @@ rule dwls:
         workflow/scripts/spatial-giotto.R {wildcards.sample} {wildcards.datafile}
         """
 
+rule dwlspdf:
+    input:
+        "DWLS_assay/{datafile}/{sample}.rds"
+    output:
+         "results/{sample}/deconvolution/dwls/{sample}-{datafile}-dwls.pdf"
+    shell:
+        """
+        workflow/scripts/spatial-giotto-pdf.R {wildcards.sample} {wildcards.datafile}
+        """
+
 rule gbm:
     input:
         "rds/{sample}.rds",
