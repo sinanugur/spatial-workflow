@@ -25,7 +25,7 @@ Spatial_Data[["DWLS"]] <- dwls_data
 
 DefaultAssay(Spatial_Data) <- "DWLS"
 
-cell_types_all=Idents(scrna_data) %>% unique() %>% as.character()
+cell_types_all=rownames(Spatial_Data)
 
 wp=Seurat::SpatialFeaturePlot(
   object = Spatial_Data,
