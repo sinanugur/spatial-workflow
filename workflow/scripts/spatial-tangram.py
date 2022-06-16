@@ -25,4 +25,4 @@ ad_map = tg.map_cells_to_space(
 tg.project_cell_annotations(ad_map, adata_st, annotation="seurat_clusters")
 
 
-adata_st.obsm['tangram_ct_pred'].to_csv("test.txt")
+adata_st.obsm['tangram_ct_pred'].to_csv(sys.argv[3])

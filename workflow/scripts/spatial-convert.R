@@ -18,8 +18,8 @@ scrna_data[["SCT"]] <- NULL
 
 UpdateSeuratObject(scrna_data) -> scrna_data
 
-SaveH5Seurat(scrna_data,paste0(scrnaID,".h5Seurat"))
-SeuratDisk::Convert(paste0(scrnaID,".h5Seurat"), dest = "h5ad")
+SaveH5Seurat(scrna_data,paste0("scrna/",scrnaID,".h5Seurat"))
+SeuratDisk::Convert(paste0("scrna/",scrnaID,".h5Seurat"), dest = "h5ad")
 
 
 

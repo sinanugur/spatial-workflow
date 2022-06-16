@@ -223,6 +223,31 @@ rule dwls:
         workflow/scripts/spatial-giotto.R {wildcards.sample} {wildcards.datafile}
         """
 
+rule convert_scanpy:
+    input:
+        "scrna/{datafile}.rds"
+    output:
+        "scrna/{datafile}.h5ad"
+    shell:
+        """
+        workflow/scripts/spatial-convert.R {wildcards.sample}
+        """
+
+
+rule tangram:
+    input:
+        "scrna/{datafile}.h5ad",
+        "data/{sample}/outs/filtered_feature_bc_matrix.h5"
+    output:
+        "tangram/{datafile}/{sample}.csv"
+    shell:
+        """
+        workflow/scripts/spatial-tangram.py data/{wildcards.sample}/outs {input[0]} {output}
+        """
+
+    
+
+
 rule dwlspdf:
     input:
         "DWLS_assay/{datafile}/{sample}.rds"
