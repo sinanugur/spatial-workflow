@@ -230,7 +230,7 @@ rule convert_scanpy:
         "scrna/{datafile}.h5ad"
     shell:
         """
-        workflow/scripts/spatial-convert.R {wildcards.sample}
+        workflow/scripts/spatial-convert.R {wildcards.datafile}
         """
 
 
