@@ -1,5 +1,6 @@
 #!/usr/bin/env Rscript
 
+require(Seurat)
 require(SeuratDisk)
 
 source("workflow/scripts/spatial-functions.R")
