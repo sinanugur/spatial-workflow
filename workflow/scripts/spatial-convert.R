@@ -13,7 +13,7 @@ scrna_data=readRDS(paste0("scrna/",scrnaID,".rds"))
 
 DefaultAssay(scrna_data) <- "RNA"
 
-scrna_data@assays$SCT <- NULL
+scrna_data[["SCT"]] <- NULL
 
 
 UpdateSeuratObject(scrna_data) -> scrna_data
