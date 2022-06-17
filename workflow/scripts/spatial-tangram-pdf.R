@@ -17,7 +17,7 @@ tangram_csv=read.csv(paste0("tangram/",scrnaID,"/",sampleID,".csv"))
 
 
 
-
+function_image_fixer(Spatial_Data) -> Spatial_Data
 
 Spatial_Data[["predictions"]] <- CreateAssayObject(tangram_csv  %>% column_to_rownames("X") %>% t())
 
