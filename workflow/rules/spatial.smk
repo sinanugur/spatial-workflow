@@ -227,7 +227,7 @@ rule convert_scanpy:
     input:
         "scrna/{datafile}.rds"
     output:
-        temp("scrna/{datafile}.h5ad"),
+        "scrna/{datafile}.h5ad",
         temp("scrna/{datafile}.h5Seurat")
     shell:
         """

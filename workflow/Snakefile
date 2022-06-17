@@ -35,7 +35,7 @@ elif route == "decon":
             expand("results/{sample}/deconvolution/gbm/{sample}-{modelfile}-gbm.pdf",modelfile=models,sample=files),
             expand("results/{sample}/deconvolution/seurat/{sample}-{datafile}-seurat.pdf",datafile=scrnadatafiles,sample=files),
             expand("results/{sample}/deconvolution/rctd/{sample}-{datafile}-rctd.pdf",datafile=scrnadatafiles,sample=files),
-            expand("tangram/{datafile}/{sample}.csv",datafile=scrnadatafiles,sample=files)
+            expand("results/{sample}/deconvolution/tangram/{sample}-{datafile}-tangram.pdf",datafile=scrnadatafiles,sample=files)
             #expand("results/{sample}/deconvolution/spotlight/{datafile}/"),
             #expand("results/{sample}/deconvolution/inhouse_gbm/{datafile}/"),
             #expand("results/{sample}/deconvolution/seurat/{datafile}/")
