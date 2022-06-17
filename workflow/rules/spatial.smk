@@ -227,7 +227,8 @@ rule convert_scanpy:
     input:
         "scrna/{datafile}.rds"
     output:
-        "scrna/{datafile}.h5ad"
+        tmp("scrna/{datafile}.h5ad"),
+        tmp("scrna/{datafile}.h5Seurat")
     shell:
         """
         workflow/scripts/spatial-convert.R {wildcards.datafile}
