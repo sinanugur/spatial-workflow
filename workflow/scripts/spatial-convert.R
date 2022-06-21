@@ -16,7 +16,7 @@ scrna_data[["SCT"]] <- NULL
 
 DietSeurat(scrna_data) -> scrna_data
 
-AddMetaData(scrna_data,make.names(scrna_data$seurat_clusters),"seurat_clusters_tangram") -> scrna_data
+AddMetaData(scrna_data,make.names(as.character(scrna_data$seurat_clusters)),"seurat_clusters_tangram") -> scrna_data
 
 
 SaveH5Seurat(scrna_data,paste0("scrna/",scrnaID,".h5Seurat"))
