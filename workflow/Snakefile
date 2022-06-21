@@ -40,12 +40,19 @@ elif route == "decon":
             #expand("results/{sample}/deconvolution/inhouse_gbm/{datafile}/"),
             #expand("results/{sample}/deconvolution/seurat/{datafile}/")
 
-elif route == "experimental":
+elif route == "dwls":
     scrnadatafiles, = glob_wildcards("scrna/{datafile}.rds")
     models, = glob_wildcards("models/{modelfile}.rds")
     rule experimental_decon:
         input:
-            expand("results/{sample}/deconvolution/dwls/{sample}-{datafile}-dwls.pdf",datafile=scrnadatafiles,sample=files),
+            expand("results/{sample}/deconvolution/dwls/{sample}-{datafile}-dwls.pdf",datafile=scrnadatafiles,sample=files)
+
+elif route == "tangramgene":
+    scrnadatafiles, = glob_wildcards("scrna/{datafile}.rds")
+    models, = glob_wildcards("models/{modelfile}.rds")
+    rule tangramgene:
+        input:
+            expand("results/{sample}/deconvolution/tangramgene/{sample}-{datafile}.tangramgene.pdf",datafile=scrnadatafiles,sample=files)
 
 elif route == "clusterplots":
     rule plotting:

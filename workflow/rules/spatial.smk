@@ -256,6 +256,17 @@ rule tangrampdf:
         workflow/scripts/spatial-tangram-pdf.R {wildcards.sample} {wildcards.datafile}
         """   
 
+rule tangram_gene_pdf:
+    input:
+        "scrna/{datafile}.h5ad",
+        "data/{sample}/outs/filtered_feature_bc_matrix.h5"
+    output:
+        "results/{sample}/deconvolution/tangramgene/{sample}-{datafile}-tangramgene.pdf"
+    shell:
+        """
+        workflow/scripts/spatial-tangram-gene.py data/{wildcards.sample}/outs {input[0]} {output}
+        """   
+
 
 rule dwlspdf:
     input:

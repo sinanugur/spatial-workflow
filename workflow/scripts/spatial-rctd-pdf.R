@@ -2,6 +2,7 @@
 
 library(Seurat)
 require(tidyverse)
+require(viridis)
 
 
 
