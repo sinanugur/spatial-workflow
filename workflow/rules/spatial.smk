@@ -246,8 +246,9 @@ rule tangram:
         workflow/scripts/spatial-tangram.py data/{wildcards.sample}/outs {input[0]} {output}
         """
 
-rule tangrampdf:
+rule tangram_pdf:
     input:
+        "rds/{sample}.rds",
         "tangram/{datafile}/{sample}.csv"
     output:
         "results/{sample}/deconvolution/tangram/{sample}-{datafile}-tangram.pdf"
