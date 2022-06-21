@@ -52,7 +52,7 @@ elif route == "tangramgene":
     models, = glob_wildcards("models/{modelfile}.rds")
     rule tangramgene:
         input:
-            expand("results/{sample}/deconvolution/tangramgene/{sample}-{datafile}.tangramgene.pdf",datafile=scrnadatafiles,sample=files)
+            expand("results/{sample}/deconvolution/tangramgene/{sample}-{datafile}-tangramgene.pdf",datafile=scrnadatafiles,sample=files)
 
 elif route == "clusterplots":
     rule plotting:
