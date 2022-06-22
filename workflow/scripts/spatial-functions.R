@@ -87,3 +87,17 @@ mylabels<-function(breaks) {
   })
   return(c(""))
 }
+
+
+seurat_plotting=function() {
+
+wp=Seurat::SpatialFeaturePlot(
+  object = Spatial_Data,
+  features = cell_types_all,alpha = c(0.7, 1),pt.size.factor = 1.5,ncol=2,images=paste0("image")) & 
+  scale_fill_viridis() &   
+  theme(legend.title = element_text(size=4.5),legend.key.size = unit(0.5,"cm"),
+  legend.text = element_text(size=3),legend.margin=margin(t = 0,b = 0.1, unit='cm'),plot.margin = margin(0.1, 0.1, 0.1, 0.1, "cm"))
+
+  return(wp)
+
+}
