@@ -2,6 +2,7 @@
 
 require(Seurat)
 require(SeuratDisk)
+require(dplyr)
 
 source("workflow/scripts/spatial-functions.R")
 arguments=commandArgs(TRUE)
