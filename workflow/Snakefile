@@ -6,7 +6,7 @@ files, = glob_wildcards("data/{sample}/outs/filtered_feature_bc_matrix.h5")
 
 include: "rules/spatial.smk"
 
-resolution=config.get("resolution",["0.8","2.5"])
+resolution=config.get("resolution",["0.8"])
 
 route=config.get("route","standart")
 
