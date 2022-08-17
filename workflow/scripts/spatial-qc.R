@@ -10,6 +10,9 @@ sampleID=arguments[1]
 
 Spatial_Data=readRDS(paste0("rds/",sampleID,".rds"))
 
+Spatial_Data[["percent.mt"]] <- PercentageFeatureSet(Spatial_Data, pattern = "^MT-")
+Spatial_Data[["percent.rp"]] <- PercentageFeatureSet(Spatial_Data, pattern = "^RP[SL]")
+
 
 
 function_image_fixer(Spatial_Data) -> Spatial_Data
