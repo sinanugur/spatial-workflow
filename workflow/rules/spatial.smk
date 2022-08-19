@@ -5,6 +5,9 @@ from yaml import load
 files, = glob_wildcards("data/{sample}/outs/filtered_feature_bc_matrix.h5")
 
 
+def get_mem_mb(wildcards, threads):
+    return threads * 5000
+
 
 rule rds:
     input:
@@ -13,7 +16,7 @@ rule rds:
         protected("rds/{sample}.rds")
     threads: 2
     resources:
-        mem_mb=2500
+        mem_mb=get_mem_mb
     shell:
         "workflow/scripts/spatial-rds.R {wildcards.sample}"
 
@@ -169,7 +172,7 @@ rule rctd:
 
     threads: 5
     resources:
-        mem_mb=30000
+        mem_mb=get_mem_mb
     shell:
         """
         workflow/scripts/spatial-rctd.R {wildcards.sample} {wildcards.datafile}
@@ -241,6 +244,10 @@ rule tangram:
         "data/{sample}/outs/filtered_feature_bc_matrix.h5"
     output:
         "tangram/{datafile}/{sample}.csv"
+    threads: 3
+    resources:
+        mem_mb=get_mem_mb
+        gpu=1
     shell:
         """
         workflow/scripts/spatial-tangram.py data/{wildcards.sample}/outs {input[0]} {output}
@@ -263,6 +270,10 @@ rule tangram_gene_pdf:
         "data/{sample}/outs/filtered_feature_bc_matrix.h5"
     output:
         "results/{sample}/deconvolution/tangramgene/{sample}-{datafile}-tangramgene.pdf"
+    threads: 5
+    resources:
+        mem_mb=get_mem_mb
+        gpu=1
     shell:
         """
         workflow/scripts/spatial-tangram-gene.py data/{wildcards.sample}/outs {input[0]} {output}
