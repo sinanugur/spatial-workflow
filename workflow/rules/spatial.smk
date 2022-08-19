@@ -246,7 +246,7 @@ rule tangram:
         "tangram/{datafile}/{sample}.csv"
     threads: 3
     resources:
-        mem_mb=get_mem_mb
+        mem_mb=get_mem_mb,
         gpu=1
     shell:
         """
@@ -272,7 +272,7 @@ rule tangram_gene_pdf:
         "results/{sample}/deconvolution/tangramgene/{sample}-{datafile}-tangramgene.pdf"
     threads: 5
     resources:
-        mem_mb=get_mem_mb
+        mem_mb=get_mem_mb,
         gpu=1
     shell:
         """
