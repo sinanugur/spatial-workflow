@@ -5,6 +5,7 @@ import tangram as tg
 import pandas as pd
 import sys
 import matplotlib.pyplot as plt
+import torch
 
 
 
@@ -17,7 +18,13 @@ adata_sc.X=adata_sc.raw.X.copy()
 
 tg.pp_adatas(adata_sc,adata_st,genes=None)
 
-ad_map = tg.map_cells_to_space(
+
+if torch.cuda.is_available():
+       ad_map = tg.map_cells_to_space(
+                   adata_sc, 
+                   adata_st,device="cuda:0")
+else:
+       ad_map = tg.map_cells_to_space(
                    adata_sc, 
                    adata_st)
 
