@@ -238,7 +238,7 @@ rule convert_scanpy:
         """
 
 
-rule tangram:
+rule tangram_cluster:
     input:
         "scrna/{datafile}.h5ad",
         "data/{sample}/outs/filtered_feature_bc_matrix.h5"
